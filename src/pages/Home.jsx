@@ -69,51 +69,52 @@ const Home = () => {
         setDuration(900)
         setBreak(true)
     }
-    
-    
+
     return (
-        <div className='pomoContainer'>
-            <div className='modeBar'>
-                <div className='indicator' style={tabStyle}></div>
-                <div className='mode' onClick={pomo}>Pomodoro</div>
-                <div className='mode' onClick={processBreak}>Short Break</div>
-                <div className='mode' onClick={longBreak}>Long Break</div>
-            </div>
-            <div>
-                <CountdownCircleTimer className="timerIco"
-                    isPlaying={start}
-                    duration={duration}
-                    colors={isBreak ? '#4CC0FF' : '#FF5733'}
-                    strokeWidth="2"
-                    key={key}
-                    size={250}
-                    colorsTime={[0]} 
-                    onComplete={() => {
-                        return isBreak ? pomo() : processBreak()
-                    }}
-                >
-                    {renderTime}
-                </CountdownCircleTimer>
-            </div>
-            <div className="button-container">
-                <div className='startBtnDiv' onClick={() => {
-                    if(!start) {
-                        setStart(true)
-                        setIcon(true)
-                    } else {
+        <div>
+            <img src="" alt="" />
+            <div className='pomoContainer'>
+                <div className='modeBar'>
+                    <div className='indicator' style={tabStyle}></div>
+                    <div className='mode' onClick={pomo}>Pomodoro</div>
+                    <div className='mode' onClick={processBreak}>Short Break</div>
+                    <div className='mode' onClick={longBreak}>Long Break</div>
+                </div>
+                <div>
+                    <CountdownCircleTimer className="timerIco"
+                        isPlaying={start}
+                        duration={duration}
+                        colors={isBreak ? '#4CC0FF' : '#FF5733'}
+                        strokeWidth="10"
+                        key={key}
+                        size={250}
+                        colorsTime={[0]} 
+                        onComplete={() => {
+                            return isBreak ? pomo() : processBreak()
+                        }}
+                    >
+                        {renderTime}
+                    </CountdownCircleTimer>
+                </div>
+                <div className="button-container">
+                    <div className='startBtnDiv' onClick={() => {
+                        if(!start) {
+                            setStart(true)
+                            setIcon(true)
+                        } else {
+                            setStart(false)
+                            setIcon(false)
+                        }
+                    }}><PlayButton className='startBtn' running={start}/>
+                    </div>
+                    <div className="resetBtnDiv" onClick={() => {
+                        setKey(key + 1) 
                         setStart(false)
                         setIcon(false)
-                    }
-                }}><PlayButton className='startBtn' running={start}/>
+                    }}><FontAwesomeIcon class="icons resetBtn" icon={faArrowRotateLeft} /></div>
                 </div>
-                <div className="resetBtnDiv" onClick={() => {
-                    setKey(key + 1) 
-                    setStart(false)
-                    setIcon(false)
-                }}><FontAwesomeIcon class="icons resetBtn" icon={faArrowRotateLeft} /></div>
             </div>
         </div>
-        
         
     ) 
 }
