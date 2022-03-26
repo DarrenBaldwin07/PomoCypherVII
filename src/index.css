@@ -57,3 +57,7 @@ h1 {
   stroke-linecap: round;
   stroke: red;
 }
+
+#time-label {
+  color:white;
+}
