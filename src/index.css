@@ -28,11 +28,19 @@ code {
     monospace;
 }
 
+nav {
+  color: white;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .container {
   max-width: var(--container-width);
   margin: 0 auto;
   padding-left: 5%;
   padding-right: 5%;
+  margin-top: 20px;
 }
 .pomoContainer {
   display: flex;
@@ -107,4 +115,55 @@ code {
 
 .indicator {
   transition: ease-in 0.2s;
+}
+
+.logo {
+  width: 50px;
+}
+
+.landingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 500px;
+}
+
+.heroText {
+  color: white;
+  font-size: 80px;
+  text-align: center;
+}
+
+.subHeroText {
+  color: #ff5733;
+  text-align: center;
+}
+
+.subHeroSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.callToActionBtn {
+  text-decoration: none;
+  color: white;
+  margin-top: 50px;
+  padding: 12px;
+  border: 2px solid #ff5733;
+  border-radius: 25px;
+}
+
+@media only screen and (max-width: 600px) {
+  .heroText {
+    font-size: 60px;
+  }
 }
