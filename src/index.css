@@ -1,13 +1,10 @@
-:root {
-  --some-red-color: red;
-  --container-width: 1500px;
-}
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@500&display=swap");
 
-.container {
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding-left: 8%;
-  padding-right: 8%;
+:root {
+  --clr-main: rgb(32, 37, 53);
+  --container-width: 1500px;
+  --clr-red: "#FF5733";
+  --clr-shadow: "#171b26";
 }
 body {
   margin: 0;
@@ -16,7 +13,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(32, 37, 53);
+  background-color: var(--clr-main);
+  font-family: "Kumbh Sans", sans-serif;
 }
 
 * {
@@ -30,34 +28,83 @@ code {
     monospace;
 }
 
-h1 {
-  color: var(--some-red-color);
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.pomoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#base-timer {
-  position: relative;
-  height: 300px;
-  width: 300px;
+.timeLabel {
+  color: white;
+  font-weight: 600;
+  font-size: 50px;
 }
 
-#back-circle {
-  fill: none;
-  stroke: none;
+.button-container {
+  margin-top: 20px;
+  display: block;
+  height: 100px;
 }
 
-#front-circle {
-  stroke-width: 0.2px;
-  stroke: rgb(87, 87, 87);
+.button-container > div {
+  display: inline-block;
+  width: 50px;
 }
 
-#path-remaining {
-  stroke-width: 5px;
-  transform: rotate(90deg);
-  transform-origin: center;
-  stroke-linecap: round;
-  stroke: red;
+.startBtnDiv:hover,
+.resetBtnDiv:hover {
+  cursor: pointer;
 }
 
-#time-label {
-  color:white;
+.startBtnDiv {
+  margin-right: 30px;
+}
+.startBtn {
+  max-width: 50px;
+  height: 80px;
+}
+
+.resetBtnDiv {
+  margin-left: 40px;
+}
+
+.resetBtn {
+  width: 50px;
+}
+
+.icons {
+  color: white;
+}
+
+.modeBar {
+  display: flex;
+  color: white;
+  gap: 25px;
+  background-color: var(--clr-main);
+  padding: 20px;
+  box-shadow: 0 0 20px hsl(224, 25%, 12%);
+  border-radius: 30px;
+  white-space: nowrap;
+}
+
+.mode {
+  z-index: 10;
+}
+.mode:hover {
+  cursor: pointer;
+}
+
+.indicator {
+  transition: ease-in 0.2s;
 }
