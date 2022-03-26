@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
-import { useCountdown } from 'react-countdown-circle-timer'
-import { render } from "@testing-library/react"
 
 const Home = () => {
     const defaultTimer = {
@@ -24,8 +22,11 @@ const Home = () => {
     }, [isActive, secondsLeft])
     
     const renderTime = ({remainingTime}) => {
+        let minutes,seconds
+        minutes = Math.floor(remainingTime / 60)
+        seconds = remainingTime % 60
         return (
-            <p id="time-label">Remaining Time: {remainingTime}</p>
+            <p id="time-label">{minutes+":"+seconds}</p>
         )
     }
 
@@ -38,7 +39,7 @@ const Home = () => {
             <Link to='/other'>Other Page</Link>
             <CountdownCircleTimer id="timer-ico"
                 isPlaying
-                duration={25}
+                duration={200}
                 colors={['#FF5733']}
                 strokeWidth="1"
                 colorsTime={[7, 5, 2, 0]}
