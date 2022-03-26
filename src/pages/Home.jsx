@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import { useCountdown } from 'react-countdown-circle-timer'
+import { render } from "@testing-library/react"
+
 const Home = () => {
     const defaultTimer = {
         seconds: '00',
@@ -19,6 +23,11 @@ const Home = () => {
         }
     }, [isActive, secondsLeft])
     
+    const renderTime = ({remainingTime}) => {
+        return (
+            <p id="time-label">Remaining Time: {remainingTime}</p>
+        )
+    }
 
     
     return (
@@ -27,25 +36,17 @@ const Home = () => {
             <h1>{pomoLength}:{secondsLeft}</h1>
             <button onClick={() => setIsActive(true)}>Start</button>
             <Link to='/other'>Other Page</Link>
-            <div id="base-timer">
-            <svg viewbox="0 0 100 100">
-                <g id="back-circle">
-                    <circle id="front-circle" r = "45" cx = "50" cy = "50"></circle>
-                    <path
-                        id="path-remaining"
-                        stroke-dasharray="283"
-                        class="base-timer__path-remaining ${remainingPathColor}"
-                        d="
-                        M 50, 50
-                        m -45, 0
-                        a 45,45 0 1,0 90,0
-                        a 45,45 0 1,0 -90,0
-                        "
-                    ></path>
-                </g>
-            </svg>
-            </div>
-            
+            <CountdownCircleTimer id="timer-ico"
+                isPlaying
+                duration={25}
+                colors={['#FF5733']}
+                strokeWidth="1"
+                colorsTime={[7, 5, 2, 0]}
+                onComplete={() => ({ shouldRepeat: true, delay: 1 })}
+            >
+
+                {renderTime}
+            </CountdownCircleTimer>
         </div>
     ) 
 }
