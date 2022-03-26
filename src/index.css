@@ -16,6 +16,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(32, 37, 53);
 }
 
 * {
@@ -31,4 +32,28 @@ code {
 
 h1 {
   color: var(--some-red-color);
+}
+
+#base-timer {
+  position: relative;
+  height: 300px;
+  width: 300px;
+}
+
+#back-circle {
+  fill: none;
+  stroke: none;
+}
+
+#front-circle {
+  stroke-width: 0.2px;
+  stroke: rgb(87, 87, 87);
+}
+
+#path-remaining {
+  stroke-width: 5px;
+  transform: rotate(90deg);
+  transform-origin: center;
+  stroke-linecap: round;
+  stroke: red;
 }
