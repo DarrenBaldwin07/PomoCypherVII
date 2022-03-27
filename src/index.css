@@ -17,6 +17,10 @@ body {
   font-family: "Kumbh Sans", sans-serif;
 }
 
+.link {
+  text-decoration: none;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -172,15 +176,31 @@ nav {
   background-color: #ff5733;
 }
 
-.bchart-container {
-  margin-top:100%;
+.spacer {
+  margin-top:60%;
+}
+.chart-container {
+  color:white;
+  text-align: center;
+  margin: 100px auto;
 
+}
+
+.chart-container > p {
+  font-style: italic;
+  padding:20px;
+}
+
+.chart {
+  margin:auto;
+  color:black;
 }
 
 h1 {
   color:white;
   text-align: center;
 }
+
 
 @media only screen and (max-width: 600px) {
   .heroText {
