@@ -6,6 +6,7 @@ import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import { faPause } from '@fortawesome/free-solid-svg-icons'
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons"
 import logo from '../assets/logo.svg'
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const Home = () => {
 
@@ -22,12 +23,67 @@ const Home = () => {
                 {!running ? (
                     <FontAwesomeIcon class="icons" icon={faCirclePlay} />
                 ) : (
-                    <FontAwesomeIcon class="icons" icon={faPause} style={{width:'30px'}} />
+                    <FontAwesomeIcon class="icons" icon={faPause} style={{width:'35px',marginLeft:'7px',marginTop:'-5.2px'}}/>
                 )}
             </>
         )
     }
 
+    const BChart = () => {
+        
+        const data = [
+            {
+            name: 'Session 1',
+            breaks: 5,
+            },
+            {
+            name: 'Session 2',
+            breaks: 3,
+            },
+            {
+            name: 'Session 3',
+            breaks: 1,
+            },
+            {
+            name: 'Session 4',
+            breaks: 0,
+            },
+            {
+            name: 'Session 5',
+            breaks: 7,
+            },
+            {
+            name: 'Session 6',
+            breaks: 3,
+            },
+        ];
+
+        return (
+            <div className="bchart-container">
+                <h1>Number of Breaks Per Session</h1>
+                <ResponsiveContainer width="100%" aspect={3}>
+                    <BarChart
+                    width={500}
+                    height={300}
+                    data={data}
+                    margin={{
+                        top: 5,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                    }}
+                    >
+                        <CartesianGrid strokeDasharray="4 4" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="breaks" fill="#FF5733" />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+        )
+  
+    }
 
     let numPas = 0;
     const renderTime = ({remainingTime}) => {
@@ -36,7 +92,7 @@ const Home = () => {
         seconds = remainingTime % 60
         return (
             <div>
-                <p className="timeLabel">{minutes+":"+seconds}</p>
+                <p className="timeLabel">{minutes+" : "+seconds}</p>
             </div>
         )
     }
@@ -82,13 +138,15 @@ const Home = () => {
                     <div className='mode' onClick={longBreak}>Long Break</div>
                 </div>
                 <div>
-                    <CountdownCircleTimer className="timerIco"
+                    <CountdownCircleTimer className="timerIco animated"
                         isPlaying={start}
                         duration={duration}
                         colors={isBreak ? '#4CC0FF' : '#FF5733'}
-                        strokeWidth="10"
+                        strokeWidth="8"
                         key={key}
-                        size={250}
+                        size={300}
+                        trailStrokeWidth={0.25}
+                        strokeLinecap={"round"}
                         colorsTime={[0]} 
                         onComplete={() => {
                             return isBreak ? pomo() : processBreak()
@@ -112,6 +170,7 @@ const Home = () => {
                     }}><FontAwesomeIcon class="icons resetBtn" icon={faArrowRotateLeft} /></div>
                 </div>
             </div>
+            <BChart />
         </div>
         
     ) 

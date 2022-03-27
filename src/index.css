@@ -29,7 +29,7 @@ code {
 }
 
 nav {
-  color: white;
+  color: rgb(24, 37, 58);
   display: flex;
   gap: 10px;
   align-items: center;
@@ -53,6 +53,10 @@ nav {
   transform: translate(-50%, -50%);
 }
 
+.timerIco {
+  transition-duration: 0.2s;
+}
+
 .timeLabel {
   color: white;
   font-weight: 600;
@@ -61,13 +65,14 @@ nav {
 
 .button-container {
   margin-top: 20px;
-  display: block;
-  height: 100px;
+  display: flex;
+  height:90px;
 }
 
 .button-container > div {
-  display: inline-block;
   width: 50px;
+  margin-left:30px;
+  margin-right:30px;
 }
 
 .startBtnDiv:hover,
@@ -75,20 +80,18 @@ nav {
   cursor: pointer;
 }
 
+.startBtnDiv:active,
+.resetBtnDiv:active {
+  transform: scale(0.8);
+}
+
 .startBtnDiv {
-  margin-right: 30px;
+  transform-origin: center;
+  transition-duration: 0.2s;
 }
-.startBtn {
-  max-width: 50px;
-  height: 80px;
-}
-
 .resetBtnDiv {
-  margin-left: 40px;
-}
-
-.resetBtn {
-  width: 50px;
+  transform-origin: center;
+  transition-duration: 0.2s;
 }
 
 .icons {
@@ -104,6 +107,7 @@ nav {
   box-shadow: 0 0 20px hsl(224, 25%, 12%);
   border-radius: 30px;
   white-space: nowrap;
+  margin-bottom:30px;
 }
 
 .mode {
@@ -114,7 +118,7 @@ nav {
 }
 
 .indicator {
-  transition: ease-in 0.2s;
+  transition: cubic-bezier(0.645, 0.045, 0.355, 1.000) 0.5s;
 }
 
 .logo {
@@ -166,6 +170,16 @@ nav {
 
 .callToActionBtn:hover {
   background-color: #ff5733;
+}
+
+.bchart-container {
+  margin-top:100%;
+
+}
+
+h1 {
+  color:white;
+  text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
