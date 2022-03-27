@@ -17,6 +17,10 @@ body {
   font-family: "Kumbh Sans", sans-serif;
 }
 
+.link {
+  text-decoration: none;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -219,7 +223,14 @@ nav {
 .submitBtn:hover {
   cursor: pointer;
 }
-
+.spacer {
+  margin-top: 60%;
+}
+.chart-container {
+  color: white;
+  text-align: center;
+  margin: 100px auto;
+}
 .loginInput {
   border: none;
   padding: 8px;
@@ -229,6 +240,16 @@ nav {
 .loginInput:focus {
   outline: none !important;
   border: 1px solid var(--clr-red);
+}
+
+.chart-container > p {
+  font-style: italic;
+  padding: 20px;
+}
+
+.chart {
+  margin: auto;
+  color: black;
 }
 
 h1 {
