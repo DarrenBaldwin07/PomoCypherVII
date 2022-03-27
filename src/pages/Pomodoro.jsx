@@ -47,7 +47,7 @@ let lData = [
 
 const Home = () => {
     const [start, setStart] = useState(false)
-    const [duration, setDuration] = useState(5)
+    const [duration, setDuration] = useState(1500)
     const [key, setKey] = useState(0);
     const [isBreak, setBreak] = useState(false)
     const [tabStyle, setTabStyle] = useState({backgroundColor: "#FF5733", width:'100px', height: '50px', position:'absolute', top: 6, left: 8, borderRadius: '25px'})
@@ -180,11 +180,10 @@ const Home = () => {
 
     const processBreak = async () => {
         sessionCount++
-        console.log(sessionCount)
         lData[lData.length-1].sessions++;
-        setDuration(3)
+        setDuration(300)
         setKey(key+1) // reset the timer
-        setBreak(true) // we are no starting a break
+        setBreak(true) // we are now starting a break
         setStart(false) // stop the timer 
         setTabStyle({backgroundColor: "#4CC0FF", width:'110px', height: '50px', position:'absolute', top: 6, left: 112, borderRadius: '25px'})
         return {
@@ -195,7 +194,7 @@ const Home = () => {
     const pomo = () => {
         setStart(false)
         setKey(key+1)
-        setDuration(5)
+        setDuration(1500)
         setTabStyle({backgroundColor: "#FF5733", width:'100px', height: '50px', position:'absolute', top: 6, left: 8, borderRadius: '25px'})
         setBreak(false)
     }
@@ -203,10 +202,9 @@ const Home = () => {
     const longBreak = () => {
         setStart(false)
         sessionCount++
-        console.log(sessionCount)
         setTabStyle({backgroundColor: "#4CC0FF", width:'110px', height: '50px', position:'absolute', top: 6, left: 222, borderRadius: '25px'})
         setKey(key+1)
-        setDuration(10)
+        setDuration(900)
         setBreak(true)
     }
 
