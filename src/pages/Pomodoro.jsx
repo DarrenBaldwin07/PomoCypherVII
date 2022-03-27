@@ -70,11 +70,7 @@ let lData = [
       },
 ]
 
-
-
 const Home = () => {
-    
-
     const [start, setStart] = useState(false)
     const [duration, setDuration] = useState(5)
     const [key, setKey] = useState(0);
@@ -113,11 +109,12 @@ const Home = () => {
                         left: 20,
                         bottom: 5,
                     }}
+                    
                     >
                         <CartesianGrid strokeDasharray="4 4" />
                         <XAxis dataKey="name" />
                         <YAxis />
-                        <Tooltip />
+                        <Tooltip cursor={{fill:"#383D4D"}}/>
                         <Bar dataKey="breaks" fill="#FF5733" />
                     </BarChart>
                 </ResponsiveContainer>
@@ -150,7 +147,7 @@ const Home = () => {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Line type="monotone" dataKey="sessions" stroke="#FF5733" />
+                    <Line type="monotone" dataKey="sessions" stroke="#FF5733" strokeWidth={3} />
                     </LineChart>
                 </ResponsiveContainer>
             </div>
