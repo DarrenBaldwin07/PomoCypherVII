@@ -8,8 +8,9 @@ const Login = () => {
 
     const saveUser = () => {
         if (inputVal != '') {
-            //localStorage.setItem('username', inputVal)
+            localStorage.setItem('username', inputVal)
             setShow(false)
+            document.body.style.overflow = ""
         }
        return
     }

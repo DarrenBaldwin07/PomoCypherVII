@@ -9,37 +9,10 @@ import logo from '../assets/logo.svg'
 import { getBreaksData } from "../scripts/queries/getBreaks"
 import Login from '../components/Login'
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Line, LineChart} from 'recharts';
-
+import { createBreaks } from '../scripts/mutations/createBreaks'
 
 let sessionCount = 0;
 let numPauses = 0;
-
-let bData = [
-    {
-    name: 'Session 1',
-    breaks: 5,
-    },
-    {
-    name: 'Session 2',
-    breaks: 3,
-    },
-    {
-    name: 'Session 3',
-    breaks: 1,
-    },
-    {
-    name: 'Session 4',
-    breaks: 0,
-    },
-    {
-    name: 'Session 5',
-    breaks: 7,
-    },
-    {
-    name: 'Session 6',
-    breaks: 3,
-    },
-];
 
 let lData = [
     {
@@ -78,22 +51,46 @@ const Home = () => {
     const [key, setKey] = useState(0);
     const [isBreak, setBreak] = useState(false)
     const [tabStyle, setTabStyle] = useState({backgroundColor: "#FF5733", width:'100px', height: '50px', position:'absolute', top: 6, left: 8, borderRadius: '25px'})
-    const [showLogin, setShowLogin] = useState(false) // YOU NEED TO EDIT THIS BEFORE BEING DONE
+    const [showLogin, setShowLogin] = useState(true)
     const [breakData, setBreakData] = useState([])
     const [sessionData, setSessionData] = useState([])
+    const [breakCount, setBreakCount] = useState(0)
+    const [callCreate, setCallCreate] = useState(false)
+    const user = localStorage.getItem('username')
+
+    const getData = async () => { 
+        const breaksData = await getBreaksData() // get all of our data
+        const sanitizedVals = breaksData.data.filter(({ username }) => username === user)
+        console.log(sanitizedVals)
+        setBreakData(sanitizedVals)
+    }
+
+    useEffect(() =>{
+        const func = async () => {
+            if (callCreate) {
+                const args = {
+                    username: user,
+                    numBreaks: breakCount,
+                    sessionCount: breakData.length + 1
+                }
+                await createBreaks(args)
+                getData()
+            }
+        }
+       func()
+    }, [callCreate])
+
     useEffect(() => {
         // check if already authed user
-        //if (localStorage.getItem('username')) setShowLogin(false)
-
-        const getData = async () => { 
-            const breaksData = await getBreaksData() // get all of our data
-            console.log(breaksData.data)
-            setBreakData(breaksData.data)
+        if (localStorage.getItem('username')) {
+            getData()
+            setShowLogin(false)
+            document.body.style.overflow = ""
+            return 
         }
-        getData()
+        document.body.style.overflow = "hidden"
     }, [])
 
-    
 
     let chartWidth = "90%";
 
@@ -119,7 +116,7 @@ const Home = () => {
                     <BarChart
                     width={500}
                     height={300}
-                    data={bData}
+                    data={data}
                     margin={{
                         top: 5,
                         right: 30,
@@ -129,10 +126,10 @@ const Home = () => {
                     
                     >
                         <CartesianGrid strokeDasharray="4 4" />
-                        <XAxis dataKey="name" />
+                        <XAxis dataKey="sessionCount" />
                         <YAxis />
                         <Tooltip cursor={{fill:"#383D4D"}}/>
-                        <Bar dataKey="breaks" fill="#FF5733" />
+                        <Bar dataKey="numBreaks" fill="#FF5733" />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
@@ -168,10 +165,8 @@ const Home = () => {
                 </ResponsiveContainer>
             </div>
         )
-
     }
 
-    let numPas = 0;
     const renderTime = ({remainingTime}) => {
         let minutes,seconds
         minutes = Math.floor(remainingTime / 60)
@@ -183,15 +178,9 @@ const Home = () => {
         )
     }
 
-    const processBreak = () => {
+    const processBreak = async () => {
         sessionCount++
         console.log(sessionCount)
-        bData.push(
-            {
-                name: "Session " + sessionCount,
-                breaks: 0
-            }
-        )
         lData[lData.length-1].sessions++;
         setDuration(3)
         setKey(key+1) // reset the timer
@@ -214,13 +203,6 @@ const Home = () => {
     const longBreak = () => {
         setStart(false)
         sessionCount++
-        bData.push(
-            {
-                name: "Session " + sessionCount,
-                breaks: 0
-            }
-        )
-        lData[lData.length-1].sessions++;
         console.log(sessionCount)
         setTabStyle({backgroundColor: "#4CC0FF", width:'110px', height: '50px', position:'absolute', top: 6, left: 222, borderRadius: '25px'})
         setKey(key+1)
@@ -247,7 +229,7 @@ const Home = () => {
                     <div className='mode' onClick={longBreak}>Long Break</div>
                 </div>
                 <div>
-                    <CountdownCircleTimer className="timerIco animated"
+                    <CountdownCircleTimer className="timerIco"
                         isPlaying={start}
                         duration={duration}
                         colors={isBreak ? '#4CC0FF' : '#FF5733'}
@@ -257,23 +239,33 @@ const Home = () => {
                         trailStrokeWidth={0.25}
                         strokeLinecap={"round"}
                         colorsTime={[0]} 
-                        onComplete={() => {
-                            return isBreak ? pomo() : processBreak()
+                        onComplete={async () => {
+                            console.log(isBreak)
+                            if (!isBreak){
+                                console.log("Testy Testy: " + breakCount)
+                                setCallCreate(true)
+                            }
+                            else {
+                                setCallCreate(false)
+                                setBreakCount(0)
+                            }
+                            isBreak ? pomo() : processBreak()
                         }}
                     >
                         {renderTime}
                     </CountdownCircleTimer>
                 </div>
                 <div className="button-container">
-                    <div className='startBtnDiv' onClick={() => {
+                    <div className='startBtnDiv' onClick={async () => {
                         if(!start) {
-                            setStart(true)
+                            setStart(true)//play
                         } else {
-                            setStart(false)
-                            numPauses++;
-                            bData[bData.length-1].breaks++;
-                            console.log(bData[bData.length-1].breaks)
-
+                            setBreakCount(breakCount + 1)
+                            console.log(breakCount)
+                            setStart(false)//pause
+                            if(!isBreak) {
+                                numPauses++;
+                            }
                         }
                     }}><PlayButton className='startBtn' running={start}/>
                     </div>
@@ -285,7 +277,7 @@ const Home = () => {
             </div>
             <div className="spacer"></div>
             <LChart data={lData}/>
-            <BChart data={bData}/>
+            <BChart data={breakData}/>
         </div>
     ) 
 }
