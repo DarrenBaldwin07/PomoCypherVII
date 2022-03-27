@@ -68,6 +68,7 @@ const Home = () => {
     useEffect(() =>{
         const func = async () => {
             if (callCreate) {
+                console.log("Call Create attempts to run")
                 const args = {
                     username: user,
                     numBreaks: breakCount,
@@ -179,11 +180,12 @@ const Home = () => {
     }
 
     const processBreak = async () => {
+        setCallCreate(true)
+        setBreak(true) // we are now starting a break
         sessionCount++
         lData[lData.length-1].sessions++;
         setDuration(300)
         setKey(key+1) // reset the timer
-        setBreak(true) // we are now starting a break
         setStart(false) // stop the timer 
         setTabStyle({backgroundColor: "#4CC0FF", width:'110px', height: '50px', position:'absolute', top: 6, left: 112, borderRadius: '25px'})
         return {
@@ -192,20 +194,22 @@ const Home = () => {
     }
 
     const pomo = () => {
+        setBreakCount(0)
+        setCallCreate(false)
+        setBreak(false)
         setStart(false)
         setKey(key+1)
         setDuration(1500)
         setTabStyle({backgroundColor: "#FF5733", width:'100px', height: '50px', position:'absolute', top: 6, left: 8, borderRadius: '25px'})
-        setBreak(false)
     }
 
     const longBreak = () => {
+        setBreak(true)
         setStart(false)
         sessionCount++
         setTabStyle({backgroundColor: "#4CC0FF", width:'110px', height: '50px', position:'absolute', top: 6, left: 222, borderRadius: '25px'})
         setKey(key+1)
         setDuration(900)
-        setBreak(true)
     }
 
     return (
@@ -237,16 +241,7 @@ const Home = () => {
                         trailStrokeWidth={0.25}
                         strokeLinecap={"round"}
                         colorsTime={[0]} 
-                        onComplete={async () => {
-                            console.log(isBreak)
-                            if (!isBreak){
-                                console.log("Testy Testy: " + breakCount)
-                                setCallCreate(true)
-                            }
-                            else {
-                                setCallCreate(false)
-                                setBreakCount(0)
-                            }
+                        onComplete={() => {
                             isBreak ? pomo() : processBreak()
                         }}
                     >
