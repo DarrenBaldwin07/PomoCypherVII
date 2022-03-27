@@ -223,54 +223,57 @@ const Home = () => {
                     <img className='logo' src={logo} alt="" />
                 </nav>
             </Link>
-            <div className='pomoContainer'>
-                <div className='modeBar'>
-                    <div className='indicator' style={tabStyle}></div>
-                    <div className='mode' onClick={pomo}>Pomodoro</div>
-                    <div className='mode' onClick={processBreak}>Short Break</div>
-                    <div className='mode' onClick={longBreak}>Long Break</div>
-                </div>
-                <div>
-                    <CountdownCircleTimer className="timerIco"
-                        isPlaying={start}
-                        duration={duration}
-                        colors={isBreak ? '#4CC0FF' : '#FF5733'}
-                        strokeWidth="8"
-                        key={key}
-                        size={300}
-                        trailStrokeWidth={0.25}
-                        strokeLinecap={"round"}
-                        colorsTime={[0]} 
-                        onComplete={() => {
-                            isBreak ? pomo() : processBreak()
-                        }}
-                    >
-                        {renderTime}
-                    </CountdownCircleTimer>
-                </div>
-                <div className="button-container">
-                    <div className='startBtnDiv' onClick={async () => {
-                        if(!start) {
-                            setStart(true)//play
-                        } else {
-                            setBreakCount(breakCount + 1)
-                            console.log(breakCount)
-                            setStart(false)//pause
-                            if(!isBreak) {
-                                numPauses++;
-                            }
-                        }
-                    }}><PlayButton className='startBtn' running={start}/>
+            <div className="data-container">
+                <div className='pomoContainer'>
+                    <div className='modeBar'>
+                        <div className='indicator' style={tabStyle}></div>
+                        <div className='mode' onClick={pomo}>Pomodoro</div>
+                        <div className='mode' onClick={processBreak}>Short Break</div>
+                        <div className='mode' onClick={longBreak}>Long Break</div>
                     </div>
-                    <div className="resetBtnDiv" onClick={() => {
-                        setKey(key + 1) 
-                        setStart(false)
-                    }}><FontAwesomeIcon class="icons resetBtn" icon={faArrowRotateLeft} /></div>
+                    <div>
+                        <CountdownCircleTimer className="timerIco"
+                            isPlaying={start}
+                            duration={duration}
+                            colors={isBreak ? '#4CC0FF' : '#FF5733'}
+                            strokeWidth="8"
+                            key={key}
+                            size={300}
+                            trailStrokeWidth={0.25}
+                            strokeLinecap={"round"}
+                            colorsTime={[0]} 
+                            onComplete={() => {
+                                isBreak ? pomo() : processBreak()
+                            }}
+                        >
+                            {renderTime}
+                        </CountdownCircleTimer>
+                    </div>
+                    <div className="button-container">
+                        <div className='startBtnDiv' onClick={async () => {
+                            if(!start) {
+                                setStart(true)//play
+                            } else {
+                                setBreakCount(breakCount + 1)
+                                console.log(breakCount)
+                                setStart(false)//pause
+                                if(!isBreak) {
+                                    numPauses++;
+                                }
+                            }
+                        }}><PlayButton className='startBtn' running={start}/>
+                        </div>
+                        <div className="resetBtnDiv" onClick={() => {
+                            setKey(key + 1) 
+                            setStart(false)
+                        }}><FontAwesomeIcon class="icons resetBtn" icon={faArrowRotateLeft} /></div>
+                    </div>
+                </div>
+                <div className="spacer">
+                    <LChart data={lData} className="chart"/>
+                    <BChart data={breakData} className="chart"/>
                 </div>
             </div>
-            <div className="spacer"></div>
-            <LChart data={lData}/>
-            <BChart data={breakData}/>
         </div>
     ) 
 }

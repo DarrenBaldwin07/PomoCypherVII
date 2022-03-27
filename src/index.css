@@ -47,18 +47,18 @@ nav {
   margin-top: 20px;
 }
 .pomoContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin:80px auto;
 }
 
 .timerIco {
   transition-duration: 0.2s;
+  position:relative;
 }
 
 .timeLabel {
@@ -223,13 +223,12 @@ nav {
 .submitBtn:hover {
   cursor: pointer;
 }
-.spacer {
-  margin-top: 60%;
-}
+
 .chart-container {
+  position: relative;
   color: white;
   text-align: center;
-  margin: 100px auto;
+  margin: 0px auto;
 }
 .loginInput {
   border: none;
@@ -248,7 +247,7 @@ nav {
 }
 
 .chart {
-  margin: auto;
+  margin:50px 0px;
   color: black;
 }
 
@@ -261,4 +260,9 @@ h1 {
   .heroText {
     font-size: 60px;
   }
+}
+
+.data-container {
+  display:flex;
+  flex-direction: column;
 }
