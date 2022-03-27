@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import { faPause } from '@fortawesome/free-solid-svg-icons'
 import { faArrowRotateLeft } from "@fortawesome/free-solid-svg-icons"
 import logo from '../assets/logo.svg'
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line} from 'recharts';
+import { getBreaksData } from "../scripts/queries/getBreaks"
+import Login from '../components/Login'
 
 const Home = () => {
 
@@ -14,8 +16,24 @@ const Home = () => {
     const [duration, setDuration] = useState(1500)
     const [key, setKey] = useState(0);
     const [isBreak, setBreak] = useState(false)
-    const [isLongBreak, setLongBreak] = useState(false)
     const [tabStyle, setTabStyle] = useState({backgroundColor: "#FF5733", width:'100px', height: '50px', position:'absolute', top: 6, left: 8, borderRadius: '25px'})
+    const [showLogin, setShowLogin] = useState(false) // YOU NEED TO EDIT THIS BEFORE BEING DONE
+    const [breakData, setBreakData] = useState([])
+    const [sessionData, setSessionData] = useState([])
+    useEffect(() => {
+        // check if already authed user
+        //if (localStorage.getItem('username')) setShowLogin(false)
+
+        const getData = async () => { 
+            const breaksData = await getBreaksData() // get all of our data
+            console.log(breaksData.data)
+            setBreakData(breaksData.data)
+        }
+        getData()
+    }, [])
+
+    
+
 
     const PlayButton = ({ running }) => {
         return (
@@ -30,8 +48,7 @@ const Home = () => {
     }
 
     const BChart = () => {
-        
-        const data = [
+        const bData = [
             {
             name: 'Session 1',
             breaks: 5,
@@ -65,7 +82,7 @@ const Home = () => {
                     <BarChart
                     width={500}
                     height={300}
-                    data={data}
+                    data={bData}
                     margin={{
                         top: 5,
                         right: 30,
@@ -82,10 +99,11 @@ const Home = () => {
                 </ResponsiveContainer>
             </div>
         )
-  
     }
 
-    let numPas = 0;
+    const LChart = () => { 
+    }
+
     const renderTime = ({remainingTime}) => {
         let minutes,seconds
         minutes = Math.floor(remainingTime / 60)
@@ -126,6 +144,9 @@ const Home = () => {
 
     return (
         <div>
+            {showLogin && (
+                <Login />
+            )}
             <nav>
                 <h1>Pomo.</h1>
                 <img className='logo' src={logo} alt="" />
