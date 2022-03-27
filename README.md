@@ -14,6 +14,7 @@ Pomo is designed and maintained by Darren Baldwin Jr. and Luke Fisher. One of th
 **The primary UI**
 
 ![Login Page](/src/assets/login.png)
+**Login Page**
 
 ## Future Development
 Our team is looking to deploy this web application via Vercel soon! In addition to being publicly hosted, we would like to implement a few other features, they're listed below.
